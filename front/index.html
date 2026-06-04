@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peluquería Canina - Las Tutis</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Peluquería Canina Las Tutis - Brindamos el mejor cuidado, baño y corte de pelo profesional para tu mascota en Escalada, Zona Sur." />
+    <meta name="keywords" content="peluquería canina, las tutis, corte de pelo perros, baño de perros, escalada, zona sur" />
+    
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/turnos.css" />
+    <link rel="icon" type="image/png" href="assets/img/page/icono.png" />
+    <!-- Animaciones AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <header class="header">
+      <img
+        src="assets/img/page/logo-menu.png"
+        alt="Logo de Las Tutis"
+        class="logo-header"
+      />
+    </header>
+
+    <section class="mascota parallax">
+      <div class="mascota-content" data-aos="fade-left">
+        <h1>Las Tutis</h1>
+        <p>Sabemos qué necesita tu perro</p>
+        <a href="#contacto" class="btn">Contáctanos</a>
+      </div>
+    </section>
+
+    <section class="sobre-nosotros" data-aos="fade-up">
+      <h2>Sobre Nosotros</h2>
+      <p>
+        En Las Tutis Peluquería Canina realizamos baños, cortes e higiene completa para que tu mascota luzca hermosa y se sienta cómoda. 
+        Trabajamos con dedicación, paciencia y productos de calidad, brindando un cuidado personalizado para cada peludito.
+      </p>
+    </section>
+
+    <section class="trabajos">
+      <h2>Nuestros trabajos</h2>
+      <div class="galeria-class" id="galeria"></div>
+    </section>
+    
+    <section class="turnos" id="turnos" data-aos="fade-up">
+      <h2>Pedir turno</h2>
+      <p class="horarios-info">Días de atención: Martes a Sábados (Domingos y Lunes cerrado)</p>
+      <form id="form-turno">
+        <input type="text" id="t-nombre" placeholder="Nombre" required />
+        <input type="email" id="t-email" placeholder="Email" required />
+        <input type="date" id="t-fecha" required />
+        <select id="t-horario" required>
+          <option value="">Seleccioná un horario</option>
+        </select>
+        <textarea id="t-comentario" placeholder="Comentario (opcional)" maxlength="200"></textarea>
+        <button type="submit" class="btn">Reservar</button>
+        <p id="t-estado" aria-live="polite"></p>
+      </form>
+    </section>
+    <!-- Modal para ver imagen en grande -->
+    <div class="modal" id="modal">
+      <span class="cerrar" id="cerrar">&times;</span>
+      <img class="modal-contenido" id="imagen-ampliada" />
+    </div>
+
+    <section class="contacto" id="contacto">
+      <h2>Escribinos</h2>
+      <form id="form-contacto">
+        <input type="text" id="c-nombre" placeholder="Nombre" required />
+        <input type="email" id="c-email" placeholder="Email" required />
+        <textarea id="c-mensaje" placeholder="Mensaje" required></textarea>
+        <button type="submit">Enviar</button>
+        <p id="c-estado" aria-live="polite" style="margin-top: 10px; font-weight: bold; min-height: 1.5em;"></p>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <img
+        src="assets/img/page/logo-footer.png"
+        alt="Logo Footer"
+        class="logo-footer"
+      />
+      <div class="footer-info">
+        <div class="contacto-info">
+          <h3>Contacto</h3>
+          <p>contacto@lastutis.com</p>
+          <p>+54 9 11 5555-5555</p>
+          <p>Escalada-Zona Sur</p>
+        </div>
+        <div class="redes-sociales">
+          <h3>Seguinos en</h3>
+          <div class="social">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/733/733558.png"
+              alt="Instagram"
+            />
+            <a href="https://www.instagram.com/lastutis_peluqueriacanina/"
+              >@lastutis</a
+            >
+          </div>
+          <div class="social">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+              alt="Facebook"
+            />
+            <a href="https://www.facebook.com/profile.php?id=100082807312579"
+              >/lastutis</a
+            >
+          </div>
+        </div>
+        <div class="servicios">
+          <h3>Servicios</h3>
+          <ul>
+            <li>Corte de raza</li>
+            <li>Baño y corte higiénico</li>
+            <li>Deslanado</li>
+            <li>Stripping</li>
+            <li>Corte de uñas</li>
+            <li>Despeje plantar de almohadillas</li>
+            <li>Baño antipulgas</li>
+            <li>Baño belleza</li>
+            <li>Color</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <!-- Botón flotante de WhatsApp -->
+
+    <a
+      href="https://wa.me/5491155555555?text=Hola%2C%20quisiera%20pedir%20un%20turno%20para%20mi%20mascota"
+      target="_blank"
+      class="whatsapp-float"
+    >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/5968/5968841.png"
+        alt="WhatsApp"
+        class="whatsapp-icon"
+      />
+    </a>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/dompurify@3.0.6/dist/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="assets/js/trabajos.js"></script>
+    <script src="assets/js/turnos.js"></script>
+    <script src="assets/js/contacto.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 2000, once: true });
+    </script>
+  </body>
+</html>

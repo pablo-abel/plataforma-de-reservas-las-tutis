@@ -1,0 +1,35 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+backend/staticfiles/
+backend/media/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Secrets (CRITICAL: Never commit to Git)
+.env
+backend/.env
+.env.local
+.env.*.local
+
+# Docker
+.docker/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

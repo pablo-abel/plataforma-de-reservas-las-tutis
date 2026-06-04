@@ -1,0 +1,62 @@
+/* Turnos (Booking) */
+.turnos {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.turnos h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #0c4d3adc;
+}
+
+.turnos form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.turnos input,
+.turnos select,
+.turnos textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.turnos textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.turnos button {
+  padding: 10px;
+  border-radius: 10px;
+  background: #076b4f93;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.turnos button:hover {
+  background: #076b4fbb;
+}
+
+#t-estado {
+  min-height: 1.2em;
+}
+
+.horarios-info {
+  font-size: 1rem;
+  color: #555555;
+  margin-top: -25px;
+  margin-bottom: 25px;
+  font-weight: 500;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Administración - Las Tutis</title>
+    <link rel="stylesheet" href="assets/css/admin.css" />
+    <link rel="icon" type="image/png" href="assets/img/page/icono.png" />
+  </head>
+  <body>
+    <div class="login-wrapper" id="login-wrapper">
+      <h2>Acceso Admin</h2>
+      <form onsubmit="event.preventDefault(); login();">
+        <input type="text" id="usuario" placeholder="Usuario/Email" />
+        <input type="password" id="clave" placeholder="Contraseña" />
+        <span class="span"><a href="#" onclick="recuperarClave();">¿Has olvidado tu contraseña?</a></span>
+        <button type="submit">Ingresar</button>
+      </form>
+    </div>
+
+    <div class="menu-top" id="menu-top" style="display: none">
+      <div class="tabs-nav">
+        <button class="tab-btn active" onclick="switchTab('turnos')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: text-bottom;">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Turnos
+        </button>
+        <button class="tab-btn" onclick="switchTab('galeria')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: text-bottom;">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          Galería
+        </button>
+        <button id="btn-agregar-turno" onclick="mostrarFormulario()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: text-bottom;">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Agregar turno
+        </button>
+      </div>
+      <div class="menu-actions">
+        <button onclick="cerrarSesion()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: text-bottom;">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Cerrar sesión
+        </button>
+      </div>
+    </div>    
+    <div class="panel" id="panel" style="display: none">
+      <!-- Solapa Turnos -->
+      <div class="tab-content active" id="tab-turnos">
+        <h1>Turnos agendados</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Email</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Comentario</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="turnos-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Solapa Galería -->
+      <div class="tab-content" id="tab-galeria">
+        <h1>Galería de Trabajos</h1>
+        <div class="gallery-section">
+          <div class="upload-section">
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; vertical-align: text-bottom;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              Subir nueva foto
+            </h3>
+            <div class="upload-form">
+              <input type="file" id="photo-input" accept="image/*" />
+              <input type="text" id="photo-alt" placeholder="Descripción (ej: Corte Caniche)" style="padding: 8px; border: 1px solid #ccc; border-radius: 5px; flex: 1;" />
+              <button onclick="uploadPhoto()">Subir</button>
+            </div>
+          </div>
+          <div class="photos-grid" id="photos-grid">
+            <!-- Las fotos se cargarán dinámicamente aquí -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="form-turno" class="formulario-turno" style="display: none">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; vertical-align: text-bottom;">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        Agendar / Modificar turno
+      </h2>
+      <div class="form-group">
+        <label for="nombre">Nombre del cliente</label>
+        <input type="text" id="nombre" placeholder="Ej: Carla Pérez" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="Ej: carla@mail.com" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" />
+        </div>
+        <div class="form-group">
+          <label for="hora">Hora</label>
+          <input type="time" id="hora" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="comentario">Comentario</label>
+        <textarea
+          id="comentario"
+          placeholder="Ej: Solo corte de uñas"
+        ></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-primary" onclick="guardarTurno()">Guardar</button>
+        <button class="btn-cancel" onclick="cerrarFormulario()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/dompurify@3.0.6/dist/purify.min.js"></script>
+    <script src="assets/js/admin.js"></script>
+  </body>
+</html>

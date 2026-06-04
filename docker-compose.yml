@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  # Base de datos relacional (PostgreSQL)
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      # Definición de variables de base de datos con valores por defecto para desarrollo local
+      POSTGRES_DB: ${POSTGRES_DB:-lastutis}
+      POSTGRES_USER: ${POSTGRES_USER:-lastutis}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lastutis}
+    ports:
+      # Puerto expuesto en local para debugging visual (Se elimina en producción)
+      - "5432:5432"
+    volumes:
+      # Volumen persistente para evitar que se borren los datos al reiniciar el contenedor
+      - pgdata:/var/lib/postgresql/data
+
+  # Servidor de la API Backend (Django)
+  web:
+    build: ./backend
+    restart: unless-stopped
+    # Ejecuta migraciones automáticas al iniciar y levanta el servidor de desarrollo
+    command: sh -c "python core/manage.py migrate && python core/manage.py runserver 0.0.0.0:8000"
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      # Montaje en caliente para ver cambios en vivo sin reconstruir la imagen de Docker
+      - ./backend:/app:Z
+    env_file:
+      # Carga de variables de entorno locales
+      - backend/.env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata: # Definición del volumen nombrado para Postgres

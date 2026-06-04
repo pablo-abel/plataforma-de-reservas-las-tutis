@@ -1,0 +1,348 @@
+/*
+ * @file admin.css
+ * @description Estilos para el panel de administración modular de "Las Tutis".
+ * Define las reglas de grid, tablas, solapas dinámicas, inputs y grilla de fotos.
+ */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("../img/page/fondo_tutis.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+.login-wrapper {
+    background: rgba(255,255,255,0.9);
+    width: 90%;
+    max-width: 400px;
+    margin: 200px auto;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .login-wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .login-wrapper input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+  }
+  
+  .login-wrapper button {
+    padding: 10px 20px;
+    background-color: #076b4f93;
+    border: none;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 350px;
+    font-weight: bold;
+  }
+  
+.span {
+  text-decoration: none;
+  color: var(--bg-dark);
+}
+
+.span a {
+  color: var(--clr);
+}
+.menu-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  background-color: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tabs-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #076b4fc9;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab-btn:hover {
+  background-color: #076b4f8c;
+}
+
+.tab-btn.active {
+  background-color: #076b4f;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.menu-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.menu-top button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #076b4fc9;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+.menu-top button:hover {
+  background-color: #076b4f8c;
+}
+.panel {
+  background: rgba(241, 243, 241, 0.918);
+  padding: 20px;
+  margin: 60px auto;
+  max-width: 95%;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+}
+.panel h1 {
+  margin-bottom: 20px;
+  color: #076b4f;
+  text-align: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+th,
+td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+th {
+  background-color: #e0f2f1;
+  color: #2e7d32;
+}
+.formulario-turno {
+    max-width: 500px;
+    background-color: rgba(239, 240, 239, 0.863);
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+  
+  .formulario-turno h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #076b4f;;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-row .form-group {
+    flex: 1;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .btn-primary {
+    padding: 10px 20px;
+    background-color: #076b4fd3;
+
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .btn-cancel {
+    padding: 10px 20px;
+    background-color: #aaa;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.upload-section {
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.upload-section h3 {
+  color: #076b4f;
+  margin-top: 0;
+}
+
+.upload-form {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.upload-form input[type="file"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.upload-form button {
+  padding: 10px 20px;
+  background-color: #076b4fd3;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+.upload-form button:hover {
+  background-color: #076b4f8c;
+}
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.photo-item {
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.photo-item .photo-info {
+  padding: 10px;
+}
+
+.photo-item .photo-info p {
+  margin: 5px 0;
+  font-size: 12px;
+  color: #333;
+}
+
+.photo-item .delete-btn {
+  width: 100%;
+  padding: 5px;
+  background-color: #aaa;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.photo-item .delete-btn:hover {
+  background-color: #888;
+}
+
+/* ✂️ Truncamiento elegante de comentarios largos para proteger el Dashboard */
+.col-comentario {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: help; /* Indica visualmente que hay un tooltip al pasar el cursor */
+}
+
+/* Estilos integrados para SweetAlert2 en el Panel de Administración */
+.swal2-popup.swal2-custom-popup {
+  border-radius: 12px !important;
+  font-family: "Segoe UI", sans-serif !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+  border: 2px solid #076b4f22 !important;
+}
+.swal2-confirm.swal2-custom-button {
+  border-radius: 6px !important;
+  font-weight: bold !important;
+}
+.swal2-cancel {
+  border-radius: 6px !important;
+}
+
+
+  
