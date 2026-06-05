@@ -189,6 +189,9 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'no-reply@lastutis.loc
 # Business owner email for notifications
 OWNER_EMAIL = os.environ.get('OWNER_EMAIL', 'owner@example.com')
 
+# Business owner phone number for WhatsApp and contact links
+OWNER_PHONE = os.environ.get('OWNER_PHONE', '+54 9 11 5555-5555')
+
 # Non-working weekdays (0=Mon .. 6=Sun), e.g., "2,3" for Wed and Thu
 _nwd = os.environ.get('NON_WORKING_WEEKDAYS', '')
 try:

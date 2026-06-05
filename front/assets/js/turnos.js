@@ -200,4 +200,31 @@
       setEstado('Error de red al enviar');
     }
   });
+
+  // Cargar configuraciones públicas (teléfono dinámico, etc.) desde el backend
+  (async function cargarConfiguraciones() {
+    try {
+      const res = await fetch(`${backendBase}/api/appointments/settings/`);
+      if (res.ok) {
+        const data = await res.json();
+        const phone = data.owner_phone;
+        if (phone) {
+          // Actualizar botón de WhatsApp
+          const waBtn = document.getElementById('whatsapp-btn');
+          if (waBtn) {
+            const cleanPhone = phone.replace(/\D/g, '');
+            waBtn.href = `https://wa.me/${cleanPhone}?text=Hola%2C%20quisiera%20pedir%20un%20turno%20para%20mi%20mascota`;
+          }
+          // Actualizar teléfono en el footer
+          const footerTel = document.getElementById('footer-telefono');
+          if (footerTel) {
+            footerTel.textContent = phone;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('No se pudieron cargar las configuraciones dinámicas:', e);
+    }
+  })();
 })();
+

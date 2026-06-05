@@ -244,7 +244,7 @@ def update_appointment(request, pk: int):
                 message = (
                     f"Hola {appt.name}:\n\n"
                     f"Lamentamos informarte que tuvimos que cancelar tu solicitud de turno programada para el dia {formatted_date}.\n\n"
-                    f"Te pedimos disculpas por el inconveniente. Podes volver a ingresar a nuestra pagina web para elegir otro de los horarios disponibles, o comunicarte directamente con nosotros via WhatsApp al +54 9 11 5555-5555.\n\n"
+                    f"Te pedimos disculpas por el inconveniente. Podes volver a ingresar a nuestra pagina web para elegir otro de los horarios disponibles, o comunicarte directamente con nosotros via WhatsApp al {getattr(settings, 'OWNER_PHONE', '+54 9 11 5555-5555')}.\n\n"
                     f"Muchas gracias por entender.\n\n"
                     f"Las Tutis"
                 )
@@ -342,4 +342,16 @@ def contact_view(request):
         )
 
     return Response({"detail": "¡Mensaje enviado con éxito! Nos comunicaremos pronto."})
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def public_settings(request):
+    """
+    Endpoint público para exponer configuraciones dinámicas al frontend.
+    """
+    return Response({
+        "owner_phone": getattr(settings, "OWNER_PHONE", "+54 9 11 5555-5555")
+    })
+
 
