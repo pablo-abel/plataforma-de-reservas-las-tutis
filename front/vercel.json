@@ -3,11 +3,12 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://lastutis-backend.onrender.com/api/:path*"
+      "destination": "https://plataforma-de-reservas-las-tutis-api.onrender.com/api/:path*"
     },
     {
       "source": "/media/:path*",
-      "destination": "https://lastutis-backend.onrender.com/media/:path*"
+      "destination": "https://plataforma-de-reservas-las-tutis-api.onrender.com/media/:path*"
     }
   ]
 }
+
