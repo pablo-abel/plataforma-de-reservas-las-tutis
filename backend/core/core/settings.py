@@ -87,6 +87,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import dj_database_url
+
 DB_NAME = os.environ.get('POSTGRES_DB', 'lastutis')
 DB_USER = os.environ.get('POSTGRES_USER', 'lastutis')
 DB_PASSWORD = os.environ.get('POSTGRES_PASSWORD', 'lastutis')
@@ -94,15 +96,13 @@ DB_HOST = os.environ.get('DB_HOST', 'db')
 DB_PORT = os.environ.get('DB_PORT', '5432')
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
-    }
+    'default': dj_database_url.config(
+        default=f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}",
+        conn_max_age=600,
+        ssl_require=os.environ.get('DATABASE_URL') is not None
+    )
 }
+
 
 
 # Password validation
