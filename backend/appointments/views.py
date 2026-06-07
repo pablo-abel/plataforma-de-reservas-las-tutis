@@ -351,7 +351,9 @@ def public_settings(request):
     Endpoint público para exponer configuraciones dinámicas al frontend.
     """
     return Response({
-        "owner_phone": getattr(settings, "OWNER_PHONE", "+54 9 11 5555-5555")
+        "owner_phone": getattr(settings, "OWNER_PHONE", "+54 9 11 5555-5555"),
+        "owner_email": getattr(settings, "OWNER_EMAIL", "contacto@lastutis.com")
     })
+
 
 

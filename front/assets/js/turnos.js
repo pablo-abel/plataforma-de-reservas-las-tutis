@@ -200,8 +200,7 @@
       setEstado('Error de red al enviar');
     }
   });
-
-  // Cargar configuraciones públicas (teléfono dinámico, etc.) desde el backend
+  // Cargar configuraciones públicas (teléfono, email dinámicos, etc.) desde el backend
   (async function cargarConfiguraciones() {
     try {
       const res = await fetch(`${backendBase}/api/appointments/settings/`);
@@ -219,6 +218,14 @@
           const footerTel = document.getElementById('footer-telefono');
           if (footerTel) {
             footerTel.textContent = phone;
+          }
+        }
+        const email = data.owner_email;
+        if (email) {
+          // Actualizar email en el footer
+          const footerEmail = document.getElementById('footer-email');
+          if (footerEmail) {
+            footerEmail.textContent = email;
           }
         }
       }
