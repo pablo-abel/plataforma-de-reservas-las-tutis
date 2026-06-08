@@ -29,9 +29,34 @@ def _send_mail_async(subject, message, from_email, recipient_list, fail_silently
     import os
     import requests
 
+    resend_key = os.environ.get('RESEND_API_KEY')
     brevo_key = os.environ.get('BREVO_API_KEY')
 
-    if brevo_key:
+    if resend_key:
+        def send_via_resend():
+            try:
+                url = "https://api.resend.com/emails"
+                headers = {
+                    "Authorization": f"Bearer {resend_key}",
+                    "Content-Type": "application/json"
+                }
+                # Resend restricts the sender to onboarding@resend.dev for unverified domains
+                sender = from_email if '@lastutis.com' in from_email else 'onboarding@resend.dev'
+                payload = {
+                    "from": f"Las Tutis <{sender}>",
+                    "to": recipient_list,
+                    "subject": subject,
+                    "text": message
+                }
+                response = requests.post(url, json=payload, headers=headers, timeout=10)
+                if not response.ok:
+                    print(f"[Resend Email Error] Status code: {response.status_code}, Response: {response.text}")
+            except Exception as e:
+                print(f"[Resend Email Exception] Failed to send email: {e}")
+
+        thread = threading.Thread(target=send_via_resend)
+        thread.start()
+    elif brevo_key:
         def send_via_brevo():
             try:
                 url = "https://api.brevo.com/v3/smtp/email"

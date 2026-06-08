@@ -135,7 +135,9 @@ body {
 .imagen-trabajo {
   width: 300px;
   height: 200px;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #faf9f6;
+  border: 1px solid #ecd6c480;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transform: scale(0.9);
