@@ -1,4 +1,5 @@
 from datetime import datetime, time, timedelta
+import threading
 
 from django.utils import timezone
 from django.db.models import Q
@@ -11,6 +12,20 @@ from django.conf import settings
 
 from .models import Appointment
 from .serializers import AppointmentSerializer, ContactSerializer
+
+
+def _send_mail_async(subject, message, from_email, recipient_list, fail_silently=True):
+    """
+    Despacha el envío del correo electrónico en un hilo de ejecución secundario (Background Thread).
+    Esto evita bloquear el hilo principal y previene timeouts cuando la app corre en servidores
+    que bloquean puertos SMTP salientes (como Render Free).
+    """
+    thread = threading.Thread(
+        target=send_mail,
+        args=(subject, message, from_email, recipient_list),
+        kwargs={'fail_silently': fail_silently}
+    )
+    thread.start()
 
 
 # Parámetros de configuración de la agenda y grilla de turnos
@@ -164,7 +179,7 @@ def create_appointment(request):
             f"Comentario: {appt.comment or '-'}\n"
             f"Estado: {appt.status}\n"
         )
-        send_mail(
+        _send_mail_async(
             subject,
             message,
             settings.DEFAULT_FROM_EMAIL,
@@ -250,12 +265,12 @@ def update_appointment(request, pk: int):
                 )
 
             if subject and message:
-                send_mail(
+                _send_mail_async(
                     subject,
                     message,
                     settings.DEFAULT_FROM_EMAIL,
                     [appt.email],
-                    fail_silently=False,
+                    fail_silently=True,
                 )
         except Exception:
             pass
@@ -325,21 +340,13 @@ def contact_view(request):
         f"Mensaje:\n{message}\n"
     )
 
-    try:
-        send_mail(
-            subject=subject,
-            message=email_content,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[getattr(settings, "OWNER_EMAIL", "owner@example.com")],
-            fail_silently=False,
-        )
-    except Exception as e:
-        # En caso de error de correo (ej: servidor SMTP mal configurado),
-        # devolvemos un 500 pero registramos el error para no colgar la app.
-        return Response(
-            {"detail": "No se pudo enviar el mensaje debido a un problema con el servidor de correo."},
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR
-        )
+    _send_mail_async(
+        subject=subject,
+        message=email_content,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[getattr(settings, "OWNER_EMAIL", "owner@example.com")],
+        fail_silently=True,
+    )
 
     return Response({"detail": "¡Mensaje enviado con éxito! Nos comunicaremos pronto."})
 

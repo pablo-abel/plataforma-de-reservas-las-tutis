@@ -15,9 +15,14 @@ def list_images(request):
     Lista todas las imágenes cargadas en el portfolio.
     Cualquier visitante de la landing page puede consultarlo de forma anónima.
     """
-    images = HaircutImage.objects.all()
-    serializer = HaircutImageSerializer(images, many=True, context={'request': request})
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    try:
+        images = HaircutImage.objects.all()
+        serializer = HaircutImageSerializer(images, many=True, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(["POST"])
