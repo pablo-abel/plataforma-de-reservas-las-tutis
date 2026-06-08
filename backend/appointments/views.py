@@ -19,7 +19,12 @@ def _send_mail_async(subject, message, from_email, recipient_list, fail_silently
     Despacha el envío del correo electrónico en un hilo de ejecución secundario (Background Thread).
     Esto evita bloquear el hilo principal y previene timeouts cuando la app corre en servidores
     que bloquean puertos SMTP salientes (como Render Free).
+    Si estamos corriendo tests unitarios (con locmem), se envía sincrónicamente.
     """
+    if settings.EMAIL_BACKEND == 'django.core.mail.backends.locmem.EmailBackend':
+        send_mail(subject, message, from_email, recipient_list, fail_silently=fail_silently)
+        return
+
     thread = threading.Thread(
         target=send_mail,
         args=(subject, message, from_email, recipient_list),
