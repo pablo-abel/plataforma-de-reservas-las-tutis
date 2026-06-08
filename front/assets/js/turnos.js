@@ -175,21 +175,6 @@
       if (res.ok) {
         setEstado('¡Pedido enviado! Te vamos a escribir por email cuando se confirme.', true);
         
-        if (typeof Swal !== 'undefined') {
-          Swal.fire({
-            icon: 'success',
-            title: '¡Turno Solicitado!',
-            text: 'Tu solicitud fue recibida. Te enviaremos un correo electrónico de confirmación una vez validado.',
-            confirmButtonColor: '#0c4d3adc',
-            background: '#faf9f6',
-            color: '#2f2325',
-            customClass: {
-              popup: 'swal2-landing-popup',
-              confirmButton: 'swal2-confirm swal2-landing-button'
-            }
-          });
-        }
-        
         formElement.reset();
         horarioSelect.innerHTML = '<option value="">Seleccioná un horario</option>';
       } else {

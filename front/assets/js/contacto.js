@@ -80,21 +80,6 @@
         estadoParagraph.textContent = data.detail || '¡Mensaje enviado con éxito! Nos comunicaremos pronto.';
         estadoParagraph.style.color = '#2ecc71'; // Verde éxito
         
-        if (typeof Swal !== 'undefined') {
-          Swal.fire({
-            icon: 'success',
-            title: '¡Mensaje Enviado!',
-            text: 'Muchas gracias por escribirnos. Nos comunicaremos con vos a la brevedad.',
-            confirmButtonColor: '#0c4d3adc',
-            background: '#faf9f6',
-            color: '#2f2325',
-            customClass: {
-              popup: 'swal2-landing-popup',
-              confirmButton: 'swal2-confirm swal2-landing-button'
-            }
-          });
-        }
-        
         // Limpiar formulario
         formElement.reset();
       } else {
