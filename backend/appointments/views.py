@@ -20,17 +20,47 @@ def _send_mail_async(subject, message, from_email, recipient_list, fail_silently
     Esto evita bloquear el hilo principal y previene timeouts cuando la app corre en servidores
     que bloquean puertos SMTP salientes (como Render Free).
     Si estamos corriendo tests unitarios (con locmem), se envía sincrónicamente.
+    Si se detecta la variable BREVO_API_KEY en el entorno, se despacha mediante la API HTTP de Brevo.
     """
     if settings.EMAIL_BACKEND == 'django.core.mail.backends.locmem.EmailBackend':
         send_mail(subject, message, from_email, recipient_list, fail_silently=fail_silently)
         return
 
-    thread = threading.Thread(
-        target=send_mail,
-        args=(subject, message, from_email, recipient_list),
-        kwargs={'fail_silently': fail_silently}
-    )
-    thread.start()
+    import os
+    import requests
+
+    brevo_key = os.environ.get('BREVO_API_KEY')
+
+    if brevo_key:
+        def send_via_brevo():
+            try:
+                url = "https://api.brevo.com/v3/smtp/email"
+                headers = {
+                    "api-key": brevo_key,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+                payload = {
+                    "sender": {"email": from_email, "name": "Las Tutis"},
+                    "to": [{"email": email} for email in recipient_list],
+                    "subject": subject,
+                    "textContent": message
+                }
+                response = requests.post(url, json=payload, headers=headers, timeout=10)
+                if not response.ok:
+                    print(f"[Brevo Email Error] Status code: {response.status_code}, Response: {response.text}")
+            except Exception as e:
+                print(f"[Brevo Email Exception] Failed to send email: {e}")
+
+        thread = threading.Thread(target=send_via_brevo)
+        thread.start()
+    else:
+        thread = threading.Thread(
+            target=send_mail,
+            args=(subject, message, from_email, recipient_list),
+            kwargs={'fail_silently': fail_silently}
+        )
+        thread.start()
 
 
 # Parámetros de configuración de la agenda y grilla de turnos
